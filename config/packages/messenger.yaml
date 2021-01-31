@@ -1,0 +1,13 @@
+framework:
+    messenger:
+        transports:
+            amqp:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: messages
+                        type: fanout
+                    queues:
+                        events-v1:
+        routing:
+            'App\MessageBus\Message\ProcessMessage': amqp
