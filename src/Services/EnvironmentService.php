@@ -80,8 +80,8 @@ final class EnvironmentService implements EnvironmentInterface
     /**
      * {@inheritDoc}
      */
-    public function getWebSocket(): array
+    public function getWebSocket(string $param): string
     {
-        return $this->websocket;
+        return $this->websocket[$param];
     }
 }

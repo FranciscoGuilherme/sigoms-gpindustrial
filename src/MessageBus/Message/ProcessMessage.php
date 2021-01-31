@@ -2,6 +2,11 @@
 
 namespace App\MessageBus\Message;
 
+use Amp\Loop;
+use Amp\Delayed;
+use Amp\Websocket;
+use Amp\Websocket\Client;
+
 /**
  * @package App\MessageBus\Message
  */
@@ -27,13 +32,39 @@ final class ProcessMessage
         $this->step = $step;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * @return int
+     */
     public function getStep(): int
     {
         return $this->step;
+    }
+
+    public function notify(): void
+    {
+        Loop::run(function () {
+            $connection = yield Client\connect($_ENV['WEBSOCKET_LISTEN_URL']);
+            $connection->send($this->getMessage());
+            $connection->close();
+        });
+    }
+
+    /**
+     * @return string
+     */
+    private function getMessage(): string
+    {
+        return sprintf('Processo: %s parado no step: %d',
+            $this->name,
+            $this->step
+        );
     }
 }

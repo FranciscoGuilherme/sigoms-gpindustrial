@@ -34,7 +34,9 @@ interface EnvironmentInterface
     public function getResource(string $resource): string;
 
     /**
-     * @return array
+     * @param string $param
+     *
+     * @return string
      */
-    public function getWebSocket(): array;
+    public function getWebSocket(string $param): string;
 }

@@ -29,7 +29,7 @@ final class SoapClientService implements SoapClientInterface
     /**
      * {@inheritdoc}
      */
-    public function request(string $resource, array $params)
+    public function request(string $resource, array $params = [])
     {
         return $this->soapClient->__soapCall($resource, $params);
     }

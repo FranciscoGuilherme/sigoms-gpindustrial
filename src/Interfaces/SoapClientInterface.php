@@ -15,5 +15,5 @@ interface SoapClientInterface
      * @param string $resource
      * @param array $params
      */
-    public function request(string $resource, array $params);
+    public function request(string $resource, array $params = []);
 }

@@ -18,6 +18,15 @@ return [
         'orders' => $_ENV['LEGACY_GPI_RESOURCE']
     ],
     'websocket' => [
+        'url' => $_ENV['WEBSOCKET_LISTEN_URL'],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Host de inicialização do WebSocket
+        |--------------------------------------------------------------------------
+        */
+        'host' => $_ENV['WEBSOCKET_LISTEN_HOST'],
+
         /*
         |--------------------------------------------------------------------------
         | Porta de inicialização do WebSocket

@@ -33,16 +33,16 @@ class WebSocketServerCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $websocket = $this->environmentService->getWebSocket();
+        $port = $this->environmentService->getWebSocket('port');
 
-        $output->writeln('Server running on port: ' . $websocket['port']);
+        $output->writeln('Server running on port: ' . $port);
         $server = IoServer::factory(
             new HttpServer(
                 new WsServer(
                     new MessageHandler()
                 )
             ),
-            $websocket['port']
+            $port
         );
 
         $server->run();

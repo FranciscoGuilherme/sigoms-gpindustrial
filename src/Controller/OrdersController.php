@@ -60,10 +60,7 @@ class OrdersController extends AbstractController
 
         return new JsonResponse([
             $this->soapClientInterface->request(
-                $this->environmentInterface->getResource('orders'),
-                [
-                    'name' => 'Scott'
-                ]
+                $this->environmentInterface->getResource('orders')
             )
         ], Response::HTTP_OK);
     }
