@@ -31,7 +31,7 @@ class OrdersController extends AbstractController
     }
 
     /**
-     * @Route("/orders", name="orders")
+     * @Route("/gpi/orders", name="orders")
      * 
      * @throws \Exception
      * 
