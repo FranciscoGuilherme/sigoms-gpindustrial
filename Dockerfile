@@ -26,6 +26,6 @@ RUN chmod +x /app/bin/console
 # ------[Exposição das portas do container]-----
 # ----------------------------------------------
 
-EXPOSE 80 443 9000
+EXPOSE 80 443 9000 3001
 
 WORKDIR /app

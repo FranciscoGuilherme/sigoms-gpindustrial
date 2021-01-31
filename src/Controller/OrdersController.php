@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Interfaces\SoapClientInterface;
+use App\Interfaces\EnvironmentInterface;
 use App\Helpers\MessagesHelper\OrdersMessagesHelper as Helper;
 
 class OrdersController extends AbstractController
@@ -22,12 +23,20 @@ class OrdersController extends AbstractController
     private SoapClientInterface $soapClientInterface;
 
     /**
-     * @param SoapClientInterface $soapClientInterface
+     * @var EnvironmentInterface $environmentInterface
      */
-    public function __construct(SoapClientInterface $soapClientInterface)
-    {
-        $this->environment = include('/app/config/environment.php');
+    private EnvironmentInterface $environmentInterface;
+
+    /**
+     * @param SoapClientInterface $soapClientInterface
+     * @param EnvironmentInterface $environmentInterface
+     */
+    public function __construct(
+        SoapClientInterface $soapClientInterface,
+        EnvironmentInterface $environmentInterface
+    ) {
         $this->soapClientInterface = $soapClientInterface;
+        $this->environmentInterface = $environmentInterface;
     }
 
     /**
@@ -40,7 +49,7 @@ class OrdersController extends AbstractController
     public function action(): JsonResponse
     {
         try {
-            $this->soapClientInterface->connect($this->environment['routes']['orders']['service']);
+            $this->soapClientInterface->connect($this->environmentInterface->getRoute('orders'));
         }
         catch (\Exception $e) {
             return new JsonResponse([
@@ -51,7 +60,7 @@ class OrdersController extends AbstractController
 
         return new JsonResponse([
             $this->soapClientInterface->request(
-                $this->environment['routes']['orders']['resource'],
+                $this->environmentInterface->getResource('orders'),
                 [
                     'name' => 'Scott'
                 ]
