@@ -7,7 +7,14 @@ return [
         | Serviço de resgate dos Pedidos
         |--------------------------------------------------------------------------
         */
-        'orders' => $_ENV['LEGACY_GPI_SERVICE'],
+        'process' => $_ENV['LEGACY_GPI_SERVICE_PROCESS'],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Serviço de resgate dos Pedidos
+        |--------------------------------------------------------------------------
+        */
+        'orders' => $_ENV['LEGACY_GPI_SERVICE_ORDERS']
     ],
     'resources' => [
         /*
@@ -15,7 +22,14 @@ return [
         | Função definida no WSDL
         |--------------------------------------------------------------------------
         */
-        'orders' => $_ENV['LEGACY_GPI_RESOURCE']
+        'process' => $_ENV['LEGACY_GPI_RESOURCE_PROCESS'],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Função definida no WSDL
+        |--------------------------------------------------------------------------
+        */
+        'orders' => $_ENV['LEGACY_GPI_RESOURCE_ORDERS']
     ],
     'websocket' => [
         'url' => $_ENV['WEBSOCKET_LISTEN_URL'],

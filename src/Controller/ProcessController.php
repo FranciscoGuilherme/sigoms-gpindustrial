@@ -8,9 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Interfaces\SoapClientInterface;
 use App\Interfaces\EnvironmentInterface;
-use App\Helpers\MessagesHelper\OrdersMessagesHelper as Helper;
+use App\Helpers\MessagesHelper\ProcessMessagesHelper as Helper;
 
-class OrdersController extends AbstractController
+class ProcessController extends AbstractController
 {
     /**
      * @var SoapClientInterface $soapClientInterface
@@ -35,7 +35,7 @@ class OrdersController extends AbstractController
     }
 
     /**
-     * @Route("/gpi/orders", name="orders")
+     * @Route("/gpi/process", name="process")
      * 
      * @throws \Exception
      * 
@@ -44,18 +44,18 @@ class OrdersController extends AbstractController
     public function action(): JsonResponse
     {
         try {
-            $this->soapClientInterface->connect($this->environmentInterface->getRoute('orders'));
+            $this->soapClientInterface->connect($this->environmentInterface->getRoute('process'));
         }
         catch (\Exception $e) {
             return new JsonResponse([
-                'message' => Helper::ORDERS_ERROR_CONNECTION_MESSAGE,
+                'message' => Helper::PROCESS_ERROR_CONNECTION_MESSAGE,
                 'details' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return new JsonResponse([
             $this->soapClientInterface->request(
-                $this->environmentInterface->getResource('orders')
+                $this->environmentInterface->getResource('process')
             )
         ], Response::HTTP_OK);
     }
