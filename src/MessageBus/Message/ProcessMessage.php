@@ -62,9 +62,6 @@ final class ProcessMessage
      */
     private function getMessage(): string
     {
-        return sprintf('Processo: %s parado no step: %d',
-            $this->name,
-            $this->step
-        );
+        return sprintf('%s', $this->name);
     }
 }
