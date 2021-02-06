@@ -15,10 +15,17 @@ final class SoapClientService implements SoapClientInterface
     /**
      * {@inheritdoc}
      */
-    public function connect(string $host): void
+    public function connect(string $host, string $token): void
     {
         try {
-            $this->soapClient = new SoapClient($host, ['cache_wsdl' => WSDL_CACHE_NONE]);
+            $this->soapClient = new SoapClient($host, [
+                'cache_wsdl' => WSDL_CACHE_NONE,
+                'stream_context' => stream_context_create([
+                    'http' => [
+                        'header' => 'Authorization: ' . $token
+                    ],
+                ]),
+            ]);
             $this->soapClient->__setLocation($host);
         }
         catch (\Exception $e) {

@@ -6,10 +6,11 @@ interface SoapClientInterface
 {
     /**
      * @param string $wsdl
+     * @param string $token
      * 
      * @throws \Exception
      */
-    public function connect(string $wsdl): void;
+    public function connect(string $wsdl, string $token): void;
 
     /**
      * @param string $resource
